@@ -1,0 +1,172 @@
+/* CSS specific for the portrait*/
+
+#wrapper {
+	
+	width:768px;
+	height:1004px;
+
+		
+}
+
+
+/*------------*/
+/* footer*/
+
+#footer-top {
+	padding-left:44px;
+
+	width:768px;
+	 height:84px;
+	 background:#007CC1;
+	 	bottom:44px;
+		line-height: 84px;
+		/*height:75px*/
+		
+	}
+#footer-top img {
+     display: inline-block;
+      vertical-align: middle;
+    
+      line-height: normal;
+	}
+
+	#footer-bottom {padding-left:44px;
+	position:absolute;
+	width:768px;
+	 height:44px;
+	 line-height:44px;
+	 background:#FFFFFF;
+	 bottom:0;
+	 vertical-align: middle;
+
+	}
+	#footer-bottom span {
+	     display: inline-block;
+      vertical-align: middle;
+    
+      line-height: normal;
+}
+
+
+/*----------*/
+
+
+
+#landscape-canvas {
+
+	display: none;
+
+}
+#portrait-canvas {
+	display:block;
+	z-index: 2;
+	position:absolute;
+	left:0px;
+	top:0px;
+	height:1004px;
+	width:768px; }
+}
+
+#layer2 {
+
+	display:block;
+}
+
+.landscape-cap {
+
+	display:none;
+}
+
+.portrait-cap {
+		display:block;
+	z-index:20;
+	position:absolute;
+	top:40px;
+	font-family:'Conv_NeuzeitGroteskTOT-BlaExtCon';
+	font-size: 82px;
+	letter-spacing:-5px;
+	color:#007CC1;line-height:85px;
+	padding-left: 44px;
+
+}
+
+.landscape_copy {
+	display:none;
+}
+
+.portrait-copy {
+
+	display:block;
+		position: absolute;
+	z-index: 100;
+	line-height: 17px;
+	right:5px;
+	
+	top:490px;
+}
+
+.portrait-copy .line {
+
+	font-family: 'Conv_NeuzeitGroteskTOT-Reg';
+	
+		font-size: 14px;
+		color: #000;
+		display:block;
+		clear:both;
+		width:400px;
+		text-align: right;
+
+}
+
+.portrait-copy img {
+	text-align: center;
+
+	margin-left:45px;
+	margin-top:20px;
+}
+/*---*/
+
+
+
+.portrait-copy #l-1 {
+	word-spacing: -0.2px;
+}
+.portrait-copy #l-2{
+	word-spacing: 5.9px;
+}
+.portrait-copy #l-3{
+	word-spacing: 0.5px;
+}
+
+.portrait-copy #l-4{
+	word-spacing: -2px;
+}
+.portrait-copy #l-5{
+	word-spacing: -1px;
+}
+.portrait-copy #l-6{
+	word-spacing: 0px;
+}
+.portrait-copy #l-7{
+	word-spacing: 4px;
+}
+
+
+#buttonAcanvas {
+	display: block;
+	padding-left: 44px;
+	top:360px;
+	position: absolute;
+	z-index: 200;
+}
+
+
+#buttonBcanvas {
+
+	display: block;
+	padding-left: 44px;
+	top:450px;
+	position: absolute;
+	z-index: 202;
+
+}

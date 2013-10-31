@@ -1,0 +1,188 @@
+/* CSS specific for the landscape*/
+
+#wrapper {
+	
+	width:1024px;
+	height:748px;
+
+	
+}
+/*------------*/
+/* footer*/
+
+#footer-top {
+	padding-left:44px;
+
+	width:1024px;
+	 height:84px;
+	 background:#007CC1;
+	 	bottom:44px;
+		line-height: 84px;
+		/*height:75px*/
+		
+	}
+	#footer-top img {
+     display: inline-block;
+      vertical-align: middle;
+    
+      line-height: normal;
+	}
+
+	#footer-bottom {padding-left:44px;
+	position:absolute;
+	width:1024px;
+	 height:44px;
+	 line-height:44px;
+	 background:#FFFFFF;
+	 bottom:0;
+	 vertical-align: middle;
+
+	}
+	#footer-bottom span {
+	     display: inline-block;
+      vertical-align: middle;
+    
+      line-height: normal;
+}
+
+
+/*----------*/
+
+
+
+#landscape-canvas{
+display:block;
+z-index: 1;
+position:absolute;
+left:0px;
+top:0px;
+height:748px;
+width:1024px; }
+
+#portrait-canvas {
+	display:none;
+}
+
+
+.landscape-cap {
+
+	display:block;
+	z-index:20;
+	position:absolute;
+	top:100px;
+	font-family:'Conv_NeuzeitGroteskTOT-BlaExtCon';
+	font-size: 82px;
+	letter-spacing:-5px;
+	color:#007CC1;line-height:85px;
+	padding-left: 44px;
+
+
+}
+
+.portrait-cap {
+	
+	display:none;
+
+}
+
+#buttonAcanvas {
+	display: block;
+	padding-left: 44px;
+	top:360px;
+	position: absolute;
+	z-index: 200;
+}
+#buttonBcanvas {
+
+	display: block;
+	padding-left: 44px;
+	top:450px;
+	position: absolute;
+	z-index: 202;
+
+}
+
+
+/* text align */
+
+.portrait-copy {
+
+	display:none;
+}
+.landscape_copy {
+	display:block;
+	position: absolute;
+	z-index: 100;
+	line-height: 17px;
+	right:5px;
+	
+	top:290px;
+}
+
+.landscape_copy .line {
+
+	font-family: 'Conv_NeuzeitGroteskTOT-Reg';
+	
+		font-size: 14px;
+		color: #000;
+		display:block;
+		clear:both;
+		width:450px;
+		text-align: right;
+}
+
+.landscape_copy img {
+
+	text-align: center;
+
+	margin-left:45px;
+	margin-top:20px;
+}
+
+
+.landscape_copy #l-1 {}
+.landscape_copy #l-2 {
+
+	word-spacing: 1.3px
+}
+
+.landscape_copy #l-3 {
+	word-spacing: 6px;
+}
+.landscape_copy #l-4 {
+	word-spacing: 1.2px;
+}
+.landscape_copy #l-6 {
+	}
+
+.landscape_copy #l-7 {
+
+}
+.landscape_copy #l-8 {
+	word-spacing: 1.5px;
+}
+.landscape_copy #l-9 {
+	word-spacing: 4.0px;
+}
+.landscape_copy #l-10 {
+	word-spacing: 4.2px;
+}
+.landscape_copy #l-11 {
+	word-spacing: 3.8px;
+}
+.landscape_copy #l-12 {
+	word-spacing: 1.7px;
+}
+.landscape_copy #l-13 {
+	word-spacing: 1.5px;
+}
+.landscape_copy #l-14 {
+	word-spacing: 4px;
+}
+.landscape_copy #l-15 { 
+
+word-spacing: 1.2px;
+}
+
+
+

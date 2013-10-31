@@ -1,0 +1,52 @@
+#wrapper {
+	
+	background:#FFFFFF;
+	position:relative;
+	overflow: hidden;
+	/*border:1px solid red;*/
+}
+
+#header {
+	/*border-bottom:1px solid #cacaca;*/
+	background:#ffffff;
+	/*margin-bottom:15px;*/
+	padding-bottom:10px; padding-top:10px;
+	
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box; /* Firefox, other Gecko */
+	box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+
+
+#footer-top{
+	/*margin-top:15px; */ 
+	padding:0; margin:0;
+
+	/*border-top:1px solid #CACACA;*/
+	/*background:#ffffff;*/
+	/*border:1px solid blue;*/
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box; /* Firefox, other Gecko */
+	box-sizing: border-box; /* Opera/IE 8+ */
+	position:absolute;
+	bottom:0;
+	z-index: 3;
+}
+
+#footer-bottom{
+	font-size:12px;
+	font-family: 'Conv_NeuzeitGroteskTOT-Reg';
+	padding:0; margin:0;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box; /* Opera/IE 8+ */
+		position:absolute;
+		bottom:0;
+		z-index: 4;
+
+
+
+}
+
+
