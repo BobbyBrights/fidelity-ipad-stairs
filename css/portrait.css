@@ -101,7 +101,7 @@
 	z-index: 100;
 	line-height: 17px;
 	right:5px;
-	
+		padding-right: 5px;
 	top:490px;
 }
 
@@ -114,6 +114,7 @@
 		display:block;
 		clear:both;
 		width:400px;
+	
 		text-align: right;
 
 }

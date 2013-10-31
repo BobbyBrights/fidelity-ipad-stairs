@@ -18,26 +18,81 @@
 })(jQuery);
 
 
+
+/**-----*/
+
+
+var portrait = {};
+var landscape = {};
+
+var buttonA = {};
+var buttonB = {};
 window.onload = function() {
 
 // bind event
 
-$('#buttonAcanvas').bind('click', function() {
+//$('#buttonAcanvas').bind('click', function() { });
+//$('#buttonBcanvas').bind('click', function() { });
 
-//console.log("whatever");
+var orientationLabel;
 
-});
-$('#buttonBcanvas').bind('click', function() {
+ if (Math.abs(window.orientation) === 90) {
+        // Landscape
+        orientationLabel = "landscape";
 
-//console.log("whatever");
+    } else {
+      // Portrait
+      orientationLabel = "portrait";
+    }
 
-});
+document.getElementById("tester").innerHTML = orientationLabel;
 
 
+///
+
+window.checkOrientation = function () {
+
+   if (Math.abs(window.orientation) === 90) {
+        // Landscape
+        orientationLabel = "landscape";
+    } else {
+      // Portrait
+      orientationLabel = "portrait";
+    }
+
+}
+
+window.checkOrientation();
+
+window.addEventListener("orientationchange", function() {
+  // Announce the new orientation number
+  window.checkOrientation();
+  document.getElementById("tester").innerHTML = orientationLabel;
+
+  if(orientationLabel=="portrait") {
+
+       clearTimeout(landscape.ffp)
+       cancelRequestAnimationFrame(landscape.request);
+       portrait.drawFrame();
+
+
+  } else if(orientationLabel=="landscape") {
+
+       clearTimeout(portrait.ffp)
+       cancelRequestAnimationFrame(  portrait.request);
+       landscape.drawFrame();
+
+
+
+  }
+
+}, false);
 
 //-----------------------------      
 // defined the landscape object 
-      var landscape = {};
+
+       landscape.loaded =0;
+    
 
 	     landscape.SCREEN_WIDTH = 1024; 
        landscape.SCREEN_HEIGHT = 748;        
@@ -66,30 +121,67 @@ $('#buttonBcanvas').bind('click', function() {
         var ni = new Image();
         ni.src = landscape.path + landscape.images[image];
         landscape.strips.push(ni);
-        //console.log(image)
+        
+
+        // attach event listener
+        landscape.strips[image].onload = function() {
+          landscape.loaded ++;
+          landscape.loadingProgressCheck(landscape.loaded);
+        }
+        
 
     }
 
+    
+      
+
+       landscape.loadingProgressCheck = function(l) {
+       // drawFrame();
+          if(l==10) {
+              console.log("it is loaded");
+              
+           
+               if(orientationLabel=="landscape"){
+                    console.log(orientationLabel + "--");
+                      landscape.drawFrame();
+               }
+              
+              
+          }
+
+       }
 
 
-       
+ 
     landscape.drawFrame =  function () {
+            
+              landscape.ffp  =   setTimeout(function() {
+        	     
+               landscape.request = requestAnimationFrame(landscape.drawFrame, landscape.canvas)
+               landscape.c.clearRect(0,0, landscape.SCREEN_HEIGHT,landscape.SCREEN_WIDTH);
+               landscape.c.drawImage(landscape.strips[landscape.index],0,0,1024,748,0,0,1024,748);
+               landscape.index++;
 
-        	  request = window.requestAnimFrame(landscape.drawFrame, landscape.canvas)
-            landscape.c.clearRect(0,0, landscape.SCREEN_HEIGHT,landscape.SCREEN_WIDTH);
-            landscape.c.drawImage(landscape.strips[landscape.index%10],0,0,1024,748,0,0,1024,748);
-            landscape.index++;
+                if(landscape.index>=10) {
+                  landscape.index = 0;
+                }
+             }, 1000 / 16);
+
+           
+            //console.log(landscape.images[landscape.index]);
         
 
       }
-          landscape.drawFrame();
+      
+    
 
      //--------------------------------     
 
      //-----------------------------      
 // defined the portrait object 
-      var portrait = {};
+      
 
+        portrait.loaded =0;
        portrait.SCREEN_WIDTH = 768; 
        portrait.SCREEN_HEIGHT = 1004;        
        
@@ -117,23 +209,55 @@ $('#buttonBcanvas').bind('click', function() {
         var ni = new Image();
         ni.src = portrait.path + portrait.images[image];
         portrait.strips.push(ni);
+
+           // attach event listener
+        portrait.strips[image].onload = function() {
+          portrait.loaded ++;
+          portrait.loadingProgressCheck(portrait.loaded);
+        }
         //console.log(image)
 
     }
 
+     portrait.loadingProgressCheck = function(l) {
+       // drawFrame();
+        if(l==10) {
+           console.log("ready to draw frame");
+             // portrait.drawFrame();
+            
+            if(orientationLabel=="portrait"){
+                    console.log(orientationLabel + "-----++")
+                    portrait.drawFrame();
+               }
+            
+             
+         
+        }
+
+       }
 
 
        
-    portrait.drawFrame =  function () {
+  portrait.drawFrame =  function () { 
+   
+           portrait.ffp  =  setTimeout(function() {
+      
 
-            request = window.requestAnimFrame(portrait.drawFrame, portrait.canvas)
+            portrait.request = window.requestAnimationFrame(portrait.drawFrame, portrait.canvas)
             portrait.c.clearRect(0,0, portrait.SCREEN_HEIGHT,portrait.SCREEN_WIDTH);
-            portrait.c.drawImage(portrait.strips[landscape.index%10],0,0,768,1004,0,0,768, 1004);
+            portrait.c.drawImage(portrait.strips[portrait.index],0,0,768,1004,0,0,768, 1004);
             portrait.index++;
+              if(portrait.index>=10) {
+                  portrait.index = 0;
+              }
+            }, 1000 / 12);
+
+
+            //console.log(landscape.index%10);
         
 
       }
-          portrait.drawFrame();
+         // portrait.drawFrame();
 
      //--------------------------------     
 
@@ -143,7 +267,7 @@ $('#buttonBcanvas').bind('click', function() {
 
 //>------------------------------
     // sprite version button A
-    var buttonA = {};
+    
     buttonA.SCREEN_WIDTH = 238;
     buttonA.SCREEN_HEIGHT = 90;
 
@@ -162,56 +286,67 @@ $('#buttonBcanvas').bind('click', function() {
     buttonA.numFrames = 21;
     buttonA.index = 0;
 
-     buttonA.drawStaticFrame = function () {
+    
+    buttonA.drawStaticFrame = function () {
            
             buttonA.c.clearRect(0,0, buttonA.SCREEN_WIDTH,buttonA.SCREEN_HEIGHT);
             buttonA.c.drawImage(buttonA.sheet,0,0,238,90,0,0,238,90);
     }
     buttonA.drawFrame =  function () {
 
-            request = window.requestAnimFrame(buttonA.drawFrame, buttonA.canvas)
-            buttonA.c.clearRect(0,0, buttonA.SCREEN_WIDTH,buttonA.SCREEN_HEIGHT);
-            buttonA.c.drawImage(buttonA.sheet,buttonA.xpos,buttonA.ypos,238,90,0,0,238,90);
-          
+          buttonA.ffp  =   setTimeout(function() {
+                          requestA = window.requestAnimationFrame(buttonA.drawFrame, buttonA.canvas)
+                          buttonA.c.clearRect(0,0, buttonA.SCREEN_WIDTH,buttonA.SCREEN_HEIGHT);
+                          buttonA.c.drawImage(buttonA.sheet,buttonA.xpos,buttonA.ypos,238,90,0,0,238,90);
+                
 
-          //each time around we add the frame size to our xpos, moving along the source image
-          buttonA.xpos += 238;
-          //increase the index so we know which frame of our animation we are currently on
-          buttonA.index += 1;
-          //if our index is higher than our total number of frames, we're at the end and better start over
-          if (buttonA.index >= buttonA.numFrames) {
-              buttonA.xpos =0;
-              buttonA.ypos =0;
-              buttonA.index=0;  
-              cancelRequestAnimFrame(request);
-              buttonB.shimmerInterval(100, function() {console.log("run shimmerA2")});
-          //if we've gotten to the limit of our source image's width, we need to move down one row of frames        
-          } else if (buttonA.xpos + 238 > buttonA.sheet.width){
-              buttonA.xpos =0;
-              buttonA.ypos += 90;
-          }
+                        //each time around we add the frame size to our xpos, moving along the source image
+                        buttonA.xpos += 238;
+                        //increase the index so we know which frame of our animation we are currently on
+                        buttonA.index += 1;
+                        //if our index is higher than our total number of frames, we're at the end and better start over
+                        if (buttonA.index >= buttonA.numFrames) {
+                            buttonA.xpos =0;
+                            buttonA.ypos =0;
+                            buttonA.index=0;  
+                            cancelRequestAnimationFrame(requestA);
+                            
 
-           
+                           
+                            buttonB.shimmerInterval(100, function() {});
+                        //if we've gotten to the limit of our source image's width, we need to move down one row of frames        
+                        } else if (buttonA.xpos + 238 > buttonA.sheet.width){
+                            buttonA.xpos =0;
+                            buttonA.ypos += 90;
+                        }
+
+          }, 1000/12);
         
 
       }
 
-      buttonA.drawStaticFrame();
+      //buttonA.drawStaticFrame();
+
+        buttonA.sheet.onload = function() {
+          
+          console.log("button A sprite sheet loadded");
+          buttonA.drawFrame();
+        }
 
       buttonA.shimmerInterval  = function (time,f) {
 
-         buttonA.shimmerTimer = setInterval(function() {
+         buttonA.shimmerTimer = setTimeout(function() {
          
           //clearInterval(buttonB.shimmerTimer);
-          clearInterval(buttonA.shimmerTimer);
-           buttonA.drawFrame();
+          clearTimeout(buttonA.shimmerTimer);
+          buttonA.drawFrame();
           
           f();
         },time);
 
       }
 
-      buttonA.shimmerInterval(1500, function() {console.log("run shimmerA1")});
+      //buttonA.shimmerInterval(1500, function() {console.log("run shimmerA1")});
 
 
      /* buttonA.shimmerTimer = setInterval(function() {
@@ -222,7 +357,7 @@ $('#buttonBcanvas').bind('click', function() {
 
 //>------------------------------------
       // sprite version button B
-    var buttonB = {};
+    
     buttonB.SCREEN_WIDTH = 238;
     buttonB.SCREEN_HEIGHT = 90;
 
@@ -250,45 +385,47 @@ $('#buttonBcanvas').bind('click', function() {
 
     buttonB.drawFrame =  function () {
 
-            request = window.requestAnimFrame(buttonB.drawFrame, buttonB.canvas)
-            buttonB.c.clearRect(0,0, buttonB.SCREEN_WIDTH,buttonB.SCREEN_HEIGHT);
-            buttonB.c.drawImage(buttonB.sheet,buttonB.xpos,buttonB.ypos,238,90,0,0,238,90);
-          
+        buttonB.ffp  =   setTimeout(function() {
+                        requestB = window.requestAnimationFrame(buttonB.drawFrame, buttonB.canvas)
+                        buttonB.c.clearRect(0,0, buttonB.SCREEN_WIDTH,buttonB.SCREEN_HEIGHT);
+                        buttonB.c.drawImage(buttonB.sheet,buttonB.xpos,buttonB.ypos,238,90,0,0,238,90);
+                   
 
-          //each time around we add the frame size to our xpos, moving along the source image
-          buttonB.xpos += 238;
-          //increase the index so we know which frame of our animation we are currently on
-          buttonB.index += 1;
-          //if our index is higher than our total number of frames, we're at the end and better start over
-          if (buttonB.index >= buttonB.numFrames) {
-              buttonB.xpos =0;
-              buttonB.ypos =0;
-              buttonB.index=0;  
-              cancelRequestAnimFrame(request);
-              buttonA.shimmerInterval(500, function() {console.log("run shimmerB2")});
-              
-              
+                      //each time around we add the frame size to our xpos, moving along the source image
+                      buttonB.xpos += 238;
+                      //increase the index so we know which frame of our animation we are currently on
+                      buttonB.index += 1;
+                      //if our index is higher than our total number of frames, we're at the end and better start over
+                      if (buttonB.index >= buttonB.numFrames) {
+                          buttonB.xpos =0;
+                          buttonB.ypos =0;
+                          buttonB.index=0;  
+                          cancelRequestAnimationFrame(requestB);
+                       
+                          buttonA.shimmerInterval(500, function() {});
+                          
+                          
 
 
-          //if we've gotten to the limit of our source image's width, we need to move down one row of frames        
-          } else if (buttonB.xpos + 238 > buttonB.sheet.width){
-              buttonB.xpos =0;
-              buttonB.ypos += 90;
-          }
+                      //if we've gotten to the limit of our source image's width, we need to move down one row of frames        
+                      } else if (buttonB.xpos + 238 > buttonB.sheet.width){
+                          buttonB.xpos =0;
+                          buttonB.ypos += 90;
+                      }
 
            
-         
+            },1000/12);
 
       }
 
-      buttonB.drawStaticFrame();
+      //buttonB.drawStaticFrame();
       
       buttonB.shimmerInterval  = function (time,f) {
 
-         buttonB.shimmerTimer = setInterval(function() {
+         buttonB.shimmerTimer = setTimeout(function() {
          
           //clearInterval(buttonB.shimmerTimer);
-           clearInterval(buttonB.shimmerTimer);
+           clearTimeout(buttonB.shimmerTimer);
            buttonB.drawFrame();
          
           f();
@@ -296,7 +433,7 @@ $('#buttonBcanvas').bind('click', function() {
 
       }
 
-      //buttonB.shimmerInterval(1500, function() {console.log("run shimmerB1")});
+    
 
      
 

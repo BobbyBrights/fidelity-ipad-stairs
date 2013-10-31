@@ -115,7 +115,7 @@ width:1024px; }
 	z-index: 100;
 	line-height: 17px;
 	right:5px;
-	
+		padding-right: 5px;
 	top:290px;
 }
 
@@ -129,6 +129,7 @@ width:1024px; }
 		clear:both;
 		width:450px;
 		text-align: right;
+	
 }
 
 .landscape_copy img {

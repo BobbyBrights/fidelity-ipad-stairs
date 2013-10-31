@@ -6,46 +6,113 @@
  * @param {HTMLElement} element   Optional parameter specifying the element that visually bounds the entire animation.
  * @return {number} Animation frame request.
  */
-/*if (!window.requestAnimationFrame) {
-  window.requestAnimationFrame = (window.webkitRequestAnimationFrame ||
-                                  window.mozRequestAnimationFrame ||
-                                  window.msRequestAnimationFrame ||
-                                  window.oRequestAnimationFrame ||
-                                  function (callback) {
-                                    return window.setTimeout(callback, 17);
-                                  });
-}
-*/
-/**
- * Cancels an animation frame request.
- * Checks for cross-browser support, falls back to clearTimeout.
- * @param {number}  Animation frame request.
- */
-/*if (!window.cancelRequestAnimationFrame) {
+
+
+ /* window.requestAnimationFrame = (function(){
+      return  window.requestAnimationFrame       || 
+              window.webkitRequestAnimationFrame || 
+              window.mozRequestAnimationFrame    || 
+              window.oRequestAnimationFrame      || 
+              window.msRequestAnimationFrame     || 
+              function( callback,element){
+                window.setTimeout(callback, 1000 / 60);
+              };
+    })(); */
+
+
+/*
+if (!window.cancelRequestAnimationFrame) {
   window.cancelRequestAnimationFrame = (window.cancelAnimationFrame ||
+                                        window.cancelAnimFrame ||
                                         window.webkitCancelRequestAnimationFrame ||
                                         window.mozCancelRequestAnimationFrame ||
                                         window.msCancelRequestAnimationFrame ||
                                         window.oCancelRequestAnimationFrame ||
                                         window.clearTimeout);
-}*/
 
+
+  console.log("cancelRequestAnimFrame was not defined")
+}
+
+*/
+
+
+
+
+  var lastTime = 0,
+        vendors = ['moz', 'webkit', 'o', 'ms'],
+        x;
+
+
+if (!window.cancelRequestAnimationFrame) {
+        // Check if standard partially supported
+        if (!window.requestAnimationFrame) {
+            // No support, emulate standard
+            window.requestAnimationFrame = function(callback) {
+                var now = new Date().getTime(),
+                    nextTime = Math.max(lastTime + 16, now);
+
+                return window.setTimeout(function() { callback(lastTime = nextTime); }, nextTime - now);
+            };
+
+            window.cancelRequestAnimationFrame = window.clearTimeout;
+        } else {
+            // Emulate cancel for browsers that don't support it
+            vendors = window.requestAnimationFrame;
+            lastTime = {};
+
+            window.requestAnimationFrame = function(callback) {
+                var id = x; // Generate the id (x is initialized in the for loop above)
+                x += 1;
+                lastTime[id] = callback;
+
+                // Call the vendors requestAnimationFrame implementation
+                vendors(function(timestamp) {
+                    if (lastTime.hasOwnProperty(id)) {
+                        var error;
+                        try {
+                            lastTime[id](timestamp);
+                        } catch (e) {
+                            error = e;
+                        } finally {
+                            delete lastTime[id];
+                            if (error) { throw error; }         // re-throw the error if an error occurred
+                        }
+                    }
+                });
+
+                // return the id for cancellation capabilities
+                return id;
+            };
+
+            window.cancelRequestAnimationFrame = function(id) {
+                delete lastTime[id];
+            };
+        }
+    }
 
 //
 
-window.requestAnimFrame = (function(){
+
+/*window.requestAnimFrame = (function(){
     return function(callback, element){
-            return window.setTimeout(callback, 1000/12);
+            return window.setTimeout(callback, 1000/);
         };
 })();
 window.cancelRequestAnimFrame = ( function() {
     return  clearTimeout
 } )(); 
 
+*/
+
+
+
 
 /* Object that contains our utility functions.
  * Attached to the window object which acts as the global namespace.
  */
+
+
 window.utils = {};
 
 /**
