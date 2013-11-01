@@ -50,3 +50,14 @@
 }
 
 
+.bolder {
+		font-family: 'Conv_NeuzeitGroteskTOT-Bol';
+}
+
+
+.line a:link , .line a:visited, .line a:hover, .line a:active {
+
+color: #25408F;
+text-decoration: underline;
+
+}
