@@ -27,6 +27,8 @@ var landscape = {};
 
 var buttonA = {};
 var buttonB = {};
+
+var fps =16;
 window.onload = function() {
 
 // bind event
@@ -72,14 +74,14 @@ window.addEventListener("orientationchange", function() {
   if(orientationLabel=="portrait") {
 
        clearTimeout(landscape.ffp)
-       cancelRequestAnimationFrame(landscape.request);
+       cancelAnimationFrame(landscape.request);
        portrait.drawFrame();
 
 
   } else if(orientationLabel=="landscape") {
 
        clearTimeout(portrait.ffp)
-       cancelRequestAnimationFrame(  portrait.request);
+       cancelAnimationFrame(portrait.request);
        landscape.drawFrame();
 
 
@@ -154,8 +156,10 @@ window.addEventListener("orientationchange", function() {
 
  
     landscape.drawFrame =  function () {
-            
+              
               landscape.ffp  =   setTimeout(function() {
+
+       
         	     
                landscape.request = requestAnimationFrame(landscape.drawFrame, landscape.canvas)
                landscape.c.clearRect(0,0, landscape.SCREEN_HEIGHT,landscape.SCREEN_WIDTH);
@@ -165,7 +169,9 @@ window.addEventListener("orientationchange", function() {
                 if(landscape.index>=10) {
                   landscape.index = 0;
                 }
-             }, 1000 / 16);
+
+               
+             }, 1000 / fps);
 
            
             //console.log(landscape.images[landscape.index]);
@@ -250,7 +256,7 @@ window.addEventListener("orientationchange", function() {
               if(portrait.index>=10) {
                   portrait.index = 0;
               }
-            }, 1000 / 12);
+            }, 1000 / fps);
 
 
             //console.log(landscape.index%10);
@@ -295,6 +301,7 @@ window.addEventListener("orientationchange", function() {
     buttonA.drawFrame =  function () {
 
           buttonA.ffp  =   setTimeout(function() {
+
                           requestA = window.requestAnimationFrame(buttonA.drawFrame, buttonA.canvas)
                           buttonA.c.clearRect(0,0, buttonA.SCREEN_WIDTH,buttonA.SCREEN_HEIGHT);
                           buttonA.c.drawImage(buttonA.sheet,buttonA.xpos,buttonA.ypos,238,90,0,0,238,90);
@@ -309,7 +316,7 @@ window.addEventListener("orientationchange", function() {
                             buttonA.xpos =0;
                             buttonA.ypos =0;
                             buttonA.index=0;  
-                            cancelRequestAnimationFrame(requestA);
+                            cancelAnimationFrame(requestA);
                             
 
                            
@@ -320,16 +327,17 @@ window.addEventListener("orientationchange", function() {
                             buttonA.ypos += 90;
                         }
 
-          }, 1000/12);
+          }, 1000/fps);
         
 
       }
 
-      //buttonA.drawStaticFrame();
+     
 
         buttonA.sheet.onload = function() {
           
           console.log("button A sprite sheet loadded");
+          buttonA.drawStaticFrame();
           buttonA.drawFrame();
         }
 
@@ -400,7 +408,7 @@ window.addEventListener("orientationchange", function() {
                           buttonB.xpos =0;
                           buttonB.ypos =0;
                           buttonB.index=0;  
-                          cancelRequestAnimationFrame(requestB);
+                          cancelAnimationFrame(requestB);
                        
                           buttonA.shimmerInterval(500, function() {});
                           
@@ -414,11 +422,11 @@ window.addEventListener("orientationchange", function() {
                       }
 
            
-            },1000/12);
+            },1000/fps);
 
       }
 
-      //buttonB.drawStaticFrame();
+      
       
       buttonB.shimmerInterval  = function (time,f) {
 
@@ -433,10 +441,15 @@ window.addEventListener("orientationchange", function() {
 
       }
 
-    
+        buttonB.sheet.onload = function() {
+            
+            buttonB.drawStaticFrame()
+
+        
+        }
 
      
-
+ 
 
 
 } //the end of window onload

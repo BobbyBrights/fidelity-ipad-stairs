@@ -103,6 +103,7 @@
 	right:5px;
 		padding-right: 5px;
 	top:490px;
+
 }
 
 .portrait-copy .line {
@@ -122,36 +123,32 @@
 .portrait-copy img {
 	text-align: center;
 
-	margin-left:45px;
-	margin-top:20px;
+	margin-left:50px;
+	margin-top:25px;
 }
 /*---*/
 
 
 
-.portrait-copy #l-1 {
-	word-spacing: -0.2px;
-}
-.portrait-copy #l-2{
-	word-spacing: 5.9px;
-}
-.portrait-copy #l-3{
-	word-spacing: 0.5px;
-}
+.portrait-copy #l-1 { word-spacing: -1px; }
+.portrait-copy #l-2{ word-spacing: 5.3px; }
+.portrait-copy #l-3{ word-spacing: 0.2px; }
+.portrait-copy #l-4{ word-spacing: -2.4px; }
+.portrait-copy #l-5{ word-spacing: -1.2px; }
+.portrait-copy #l-6{ word-spacing: -0.5px; }
+.portrait-copy #l-7{ word-spacing: 3.6px; }
 
-.portrait-copy #l-4{
-	word-spacing: -2px;
-}
-.portrait-copy #l-5{
-	word-spacing: -1px;
-}
-.portrait-copy #l-6{
-	word-spacing: 0px;
-}
-.portrait-copy #l-7{
-	word-spacing: 4px;
-}
+.portrait-copy #l-8{				 	 }
 
+.portrait-copy #l-9{				 	 }
+.portrait-copy #l-10{				 	 }
+.portrait-copy #l-11{	word-spacing: -0.4px;			 	 }
+.portrait-copy #l-12{	word-spacing: -2.1px;			 	 }
+.portrait-copy #l-13{		word-spacing: 0px;		 	 }
+.portrait-copy #l-14{				 	 }
+.portrait-copy #l-15{	word-spacing: 1.3px;			 	 }
+.portrait-copy #l-16{		word-spacing: 1px;				 	 }
+.portrait-copy #l-17{padding-right: 250px;		 	 }
 
 #buttonAcanvas {
 	display: block;
