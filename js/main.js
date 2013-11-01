@@ -35,24 +35,20 @@ window.onload = function() {
 
 //$('#buttonAcanvas').bind('click', function() { });
 //$('#buttonBcanvas').bind('click', function() { });
+$('#close_bt').bind('click', function() { 
+  console.log(this);
+  $('#box').css("display", "none");
+});
 
-var orientationLabel;
+var orientationLabel="landscape";
 
- if (Math.abs(window.orientation) === 90) {
-        // Landscape
-        orientationLabel = "landscape";
 
-    } else {
-      // Portrait
-      orientationLabel = "portrait";
-    }
-
-document.getElementById("tester").innerHTML = orientationLabel;
+//document.getElementById("tester").innerHTML = orientationLabel;
 
 
 ///
 
-window.checkOrientation = function () {
+/*window.checkOrientation = function () {
 
    if (Math.abs(window.orientation) === 90) {
         // Landscape
@@ -64,7 +60,7 @@ window.checkOrientation = function () {
 
 }
 
-window.checkOrientation();
+window.checkOrientation(); */
 
 window.addEventListener("orientationchange", function() {
   // Announce the new orientation number
@@ -143,10 +139,10 @@ window.addEventListener("orientationchange", function() {
               console.log("it is loaded");
               
            
-               if(orientationLabel=="landscape"){
+               if(orientationLabel=="landscape"){    }
                     console.log(orientationLabel + "--");
                       landscape.drawFrame();
-               }
+           
               
               
           }
@@ -231,10 +227,10 @@ window.addEventListener("orientationchange", function() {
            console.log("ready to draw frame");
              // portrait.drawFrame();
             
-            if(orientationLabel=="portrait"){
+            if(orientationLabel=="portrait"){     }
                     console.log(orientationLabel + "-----++")
                     portrait.drawFrame();
-               }
+          
             
              
          
