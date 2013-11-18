@@ -65,7 +65,7 @@ window.checkOrientation(); */
 window.addEventListener("orientationchange", function() {
   // Announce the new orientation number
   window.checkOrientation();
-  document.getElementById("tester").innerHTML = orientationLabel;
+  //document.getElementById("tester").innerHTML = orientationLabel;
 
   if(orientationLabel=="portrait") {
 
